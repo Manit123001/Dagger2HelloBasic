@@ -1,0 +1,13 @@
+apply from: "$project.rootDir/tools/config.gradle"
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    sourceSets {
+        main.java.srcDirs += 'src/main/java'
+        debug.java.srcDirs += 'src/debug/java'
+        release.java.srcDirs += 'src/debug/java'
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+    }
+}

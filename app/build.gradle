@@ -1,0 +1,49 @@
+apply from: "$project.rootDir/tools/config.gradle"
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.mcnewz.sample.app.dagger2hello"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+ext.dagger_version ="2.16"
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+//    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
+    implementation "com.android.support:appcompat-v7:$ver.androidSupport"
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
+    testImplementation 'junit:junit:4.12'
+
+
+//    // dagger
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    implementation "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+    implementation "com.google.dagger:dagger-android:$dagger_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger_version"
+
+    // architecture components
+//    implementation "android.arch.lifecycle:runtime:$ver.lifecycleArchExtension"
+//    implementation "android.arch.lifecycle:extensions:$ver.lifecycleArchExtension"
+//    implementation "android.arch.lifecycle:reactivestreams:$ver.lifecycleArchExtension"
+//    kapt "android.arch.lifecycle:compiler:$ver.lifecycleArchExtension"
+}
