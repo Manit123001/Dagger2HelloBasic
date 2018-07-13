@@ -6,30 +6,22 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import android.widget.Toast
-import com.mcnewz.sample.app.dagger2hello.MainApplication
 import com.mcnewz.sample.app.dagger2hello.R
-import com.mcnewz.sample.app.dagger2hello.model.UserModel
+import com.mcnewz.sample.app.dagger2hello.di.Injectable
 import com.mcnewz.sample.app.dagger2hello.utils.UserUtils
+import kotlinx.android.synthetic.main.fragment_main.*
 import javax.inject.Inject
 
 
-class UserFragment : Fragment() {
+class UserFragment : Fragment(), Injectable {
     @Inject
     lateinit var prefs: SharedPreferences
+
     lateinit var prefsEdit: SharedPreferences.Editor
 
     @Inject
     lateinit var user1: UserUtils
-
-    init {
-
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
@@ -38,19 +30,15 @@ class UserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         prefsEdit = prefs.edit()
-        prefsEdit.putString("name", "manit")
+        prefsEdit.putString("name", "Manit")
         prefsEdit.putString("lastName", "Cholpinyo")
         prefsEdit.commit()
         val name = prefs.getString("name", "55")
         val lastName = prefs.getString("lastName", "66")
         toast("$name $lastName")
 
-        toast(user1.hi())
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        MainApplication.appComponent.inject(this)
+        tvHello.text = user1.yoyo()
+//        toast(user1.hi() + user1.yoyo())
     }
 
     fun toast(s: String) {

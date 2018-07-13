@@ -1,13 +1,27 @@
 package com.mcnewz.sample.app.dagger2hello.di
 
-import com.mcnewz.sample.app.dagger2hello.ui.UserFragment
+import android.app.Application
+import com.mcnewz.sample.app.dagger2hello.MainApplication
+import dagger.BindsInstance
 import dagger.Component
+import dagger.android.AndroidInjectionModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AppModule::class])
+@Component(
+        modules = [
+            AndroidInjectionModule::class,
+            AppModule::class,
+            MainActivityModule::class]
+)
 interface AppComponent {
+    @Component.Builder
+    interface Builder {
+        @BindsInstance
+        fun application(application: Application): Builder
 
-    // The class that is injected
-    fun inject(mainFragment: UserFragment)
+        fun build(): AppComponent
+    }
+
+    fun inject(mainApplication: MainApplication)
 }
