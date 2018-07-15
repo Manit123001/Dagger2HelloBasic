@@ -53,6 +53,7 @@ dependencies {
     //Room
     implementation "android.arch.persistence.room:runtime:$room_version"
     annotationProcessor "android.arch.persistence.room:compiler:$room_version"
+    kapt "android.arch.persistence.room:compiler:$ver.roomVersion"
 
     // ViewModel and LiveData
     implementation "android.arch.lifecycle:extensions:$ver.lifecycleArchExtension"

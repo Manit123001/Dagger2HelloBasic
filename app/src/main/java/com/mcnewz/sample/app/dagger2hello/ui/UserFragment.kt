@@ -1,5 +1,7 @@
 package com.mcnewz.sample.app.dagger2hello.ui
 
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -23,12 +25,42 @@ class UserFragment : Fragment(), Injectable {
     @Inject
     lateinit var user1: UserUtils
 
+    // db
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private lateinit var userViewModel: UserViewModel
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
+    private lateinit var background: Thread
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        userViewModel = ViewModelProviders.of(this, viewModelFactory).get(UserViewModel::class.java)
+
+        prefsInit()
+        dbInit()
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+        background.interrupt()
+    }
+
+    private fun dbInit() {
+        background = object : Thread() {
+            override fun run() {
+                userViewModel.addData()
+            }
+        }
+        background.start()
+    }
+
+    private fun prefsInit() {
         prefsEdit = prefs.edit()
         prefsEdit.putString("name", "Manit")
         prefsEdit.putString("lastName", "Cholpinyo")
