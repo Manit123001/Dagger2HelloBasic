@@ -25,6 +25,9 @@ android {
 
 ext.dagger_version ="2.16"
 
+def room_version = "1.1.1"
+def lifecycle_version = "2.0.0-beta01"
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -46,4 +49,13 @@ dependencies {
 //    implementation "android.arch.lifecycle:extensions:$ver.lifecycleArchExtension"
 //    implementation "android.arch.lifecycle:reactivestreams:$ver.lifecycleArchExtension"
 //    kapt "android.arch.lifecycle:compiler:$ver.lifecycleArchExtension"
+
+    //Room
+    implementation "android.arch.persistence.room:runtime:$room_version"
+    annotationProcessor "android.arch.persistence.room:compiler:$room_version"
+
+    // ViewModel and LiveData
+    implementation "android.arch.lifecycle:extensions:$ver.lifecycleArchExtension"
+    kapt "android.arch.lifecycle:compiler:$ver.roomVersion"
+
 }

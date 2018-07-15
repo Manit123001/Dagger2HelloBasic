@@ -37,8 +37,8 @@ class UserFragment : Fragment(), Injectable {
         val lastName = prefs.getString("lastName", "66")
         toast("$name $lastName")
 
-        tvHello.text = user1.yoyo()
-//        toast(user1.hi() + user1.yoyo())
+        tv_hello.text = user1.yoyo()
+        toast(user1.hi() + user1.yoyo())
     }
 
     fun toast(s: String) {
